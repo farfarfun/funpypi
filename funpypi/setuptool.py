@@ -29,6 +29,7 @@ def setup(
         package_data=package_data or {"": ["*.js", "*.*"]},
         install_requires=install_requires or [],
         long_description=long_description or open("README.md").read(),
+        long_description_content_type="text/markdown",
         *args,
         **kwargs,
     )
