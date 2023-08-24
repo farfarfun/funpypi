@@ -13,6 +13,7 @@ def setup(
     packages=None,
     package_data=None,
     install_requires=None,
+    long_description=None,
     *args,
     **kwargs,
 ):
@@ -27,6 +28,7 @@ def setup(
         packages=packages or find_packages(),
         package_data=package_data or {"": ["*.js", "*.*"]},
         install_requires=install_requires or [],
+        long_description=long_description or open("README.md").read(),
         *args,
         **kwargs,
     )
