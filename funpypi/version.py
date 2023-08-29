@@ -1,4 +1,5 @@
 from os import path
+import sys
 
 
 class VersionManage:
@@ -36,6 +37,7 @@ class VersionManage:
 
 
 def read_version(version_path=None, update=True):
+    print(sys.argv)
     manage = VersionManage(version_path=version_path)
     manage.read()
     if update:
