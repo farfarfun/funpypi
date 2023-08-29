@@ -40,7 +40,7 @@ def read_version(version_path=None, update=True):
     print(sys.argv)
     manage = VersionManage(version_path=version_path)
     manage.read()
-    if update:
+    if update and len(sys.argv) >= 2 and sys.argv[1] == "build":
         manage.add()
         manage.write()
     return manage.version
