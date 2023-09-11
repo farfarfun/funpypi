@@ -36,10 +36,11 @@ class VersionManage:
         return self.version
 
 
-def read_version(version_path=None, update=True):
+def read_version(version_path=None, update=False):
     manage = VersionManage(version_path=version_path)
     manage.read()
-    if update and len(sys.argv) >= 2 and sys.argv[1] == "build":
+    print(sys.argv)
+    if update or (len(sys.argv) >= 2 and sys.argv[1] == "build"):
         manage.add()
         manage.write()
     return manage.version
