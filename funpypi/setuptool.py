@@ -1,4 +1,7 @@
+import os
+
 from setuptools import find_packages, setup as setup2
+
 from .version import read_version
 
 
@@ -33,3 +36,7 @@ def setup(
         *args,
         **kwargs,
     )
+
+
+def setups(params: list = []):
+    return setup(**params[int(os.environ.get("funbuild_multi_index", "0"))])
