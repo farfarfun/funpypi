@@ -41,6 +41,7 @@ def read_version(version_path=None, update=False):
     manage = VersionManage(version_path=version_path)
     manage.read()
     print(os.environ.get("funbuild_multi_index", 0))
+    print(sys.argv)
     if update or (
         len(sys.argv) >= 2
         and (os.environ.get("funbuild_multi_index", 0) == 0)
