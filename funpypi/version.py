@@ -43,7 +43,7 @@ def read_version(version_path=None, update=False):
 
     if update or (
         len(sys.argv) >= 2
-        and (os.environ.get("funbuild_multi_index", 1) == 1)
+        and (os.environ.get("funbuild_multi_index", 0) == 0)
         and (sys.argv[1] == "build" or sys.argv[1] == "bdist_wheel")
     ):
         # print(sys.argv)
