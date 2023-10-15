@@ -1,2 +1,2 @@
 from .version import read_version
-from .setuptool import setup
+from .setuptool import setup, setups
