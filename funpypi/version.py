@@ -1,5 +1,6 @@
-from os import path
+import os
 import sys
+from os import path
 
 
 class VersionManage:
@@ -40,7 +41,11 @@ def read_version(version_path=None, update=False):
     manage = VersionManage(version_path=version_path)
     manage.read()
     print(sys.argv)
-    if update or (len(sys.argv) >= 2 and (sys.argv[1] == "build" or sys.argv[1] == "bdist_wheel")):
+    if update or (
+        len(sys.argv) >= 2
+        and (os.environ.get("funbuild_multi_index", 1) == 1)
+        and (sys.argv[1] == "build" or sys.argv[1] == "bdist_wheel")
+    ):
         print(sys.argv)
         manage.add()
         manage.write()
