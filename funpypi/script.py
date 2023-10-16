@@ -5,7 +5,9 @@ import subprocess
 def install(*args, **kwargs):
     packages = ["fundb", "funsecret", "farfuntask", "funbuild", "fundrive", "funread"]
     for package in packages:
+        print(f"install {package} ...")
         subprocess.run(["pip", "install", package, "-U", "-i", "https://pypi.org/simple/", "-q"])
+        print(f"install {package} done")
 
 
 def funpypi():
