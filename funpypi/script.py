@@ -2,7 +2,7 @@ import argparse
 import subprocess
 
 
-def install():
+def install(*args, **kwargs):
     packages = ["funpypi", "fundb", "funsecret", "farfuntask", "funbuild", "fundrive", "funread"]
     for package in packages:
         subprocess.check_call(["pip", "install", package, "-U -i https://pypi.org/simple/ -q"])
