@@ -1,4 +1,5 @@
 import os
+from typing import Any
 
 from setuptools import find_packages, setup as setup2
 
@@ -6,20 +7,21 @@ from .version import read_version
 
 
 def setup(
-    name,
-    package_name=None,
-    version=None,
-    description=None,
-    author=None,
-    author_email=None,
-    url=None,
-    packages=None,
-    package_data=None,
-    install_requires=None,
-    long_description=None,
+    name: str,
+    package_name: str | None = None,
+    version: str | None = None,
+    description: str | None = None,
+    author: str | None = None,
+    author_email: str | None = None,
+    url: str | None = None,
+    packages: list[str] | None = None,
+    package_data: dict[str, list[str]] | None = None,
+    install_requires: list[str] | None = None,
+    long_description: str | None = None,
     *args,
-    **kwargs,
-):
+    **kwargs: Any,
+) -> Any:
+    """按组织默认值调用 setuptools.setup。"""
     version = version or read_version()
     return setup2(
         name=package_name or name,
@@ -38,5 +40,7 @@ def setup(
     )
 
 
-def setups(params: list = []):
+def setups(params: list[dict[str, Any]] | None = None) -> Any:
+    """根据 funbuild 多包索引选择并调用 setup。"""
+    params = params or []
     return setup(**params[int(os.environ.get("funbuild_multi_index", "0"))])
