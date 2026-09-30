@@ -1,7 +1,7 @@
 [project]
 name = "funpypi"
 version = "0.2.2"
-description = "funfarfun 组织内部打包发布辅助工具"
+description = "farfarfun 包版本递增与 setuptools 兼容辅助工具"
 readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"
@@ -13,7 +13,14 @@ dependencies = ["farlog>=1.1.7", "funshell>=1.0.19", "setuptools>=68.0"]
 funpypi = "funpypi.script:funpypi"
 
 [dependency-groups]
-dev = ["pytest>=8.0.0"]
+dev = ["pytest>=8.0.0", "ruff>=0.8"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
 
 [build-system]
 requires = ["hatchling"]
