@@ -34,7 +34,7 @@ def test_install_stops_on_failed_command() -> None:
     from funpypi import script
 
     with patch.object(script, "run_shell", side_effect=["1"]) as run:
-        with pytest.raises(RuntimeError, match="fundb"):
+        with pytest.raises(RuntimeError, match="fardb"):
             script.install()
     run.assert_called_once()
 
@@ -42,8 +42,9 @@ def test_install_stops_on_failed_command() -> None:
 def test_install_succeeds_for_all_packages() -> None:
     """全部包安装成功时应逐个调用 pip，且批量安装列表只含组织自有包名。
 
-    `fundb` 在 PyPI 上已被他人（Madhava-mng）占用，组织自有发布名是
-    `fundb-tau`（见 NAMING.md），批量安装不能按仓库名直接装到别人的包。
+    组织的数据库库发布名是 `fardb`（见 NAMING.md）。PyPI 上的 `fundb` 属于他人
+    （Madhava-mng），`fundb-tau` 是改名前的旧发布名且已停止更新，批量安装不能
+    用这两个名字。
     """
     from funpypi import script
 
@@ -53,8 +54,9 @@ def test_install_succeeds_for_all_packages() -> None:
         call.args[0].split("install -U ")[1].split(" ")[0] for call in run.call_args_list
     ]
     assert run.call_count == len(installed_pkgs) == 7
-    assert "fundb-tau" in installed_pkgs
+    assert "fardb" in installed_pkgs
     assert "fundb" not in installed_pkgs
+    assert "fundb-tau" not in installed_pkgs
 
 
 def test_setup_defaults_name() -> None:

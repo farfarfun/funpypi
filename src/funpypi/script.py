@@ -20,7 +20,7 @@ def install(*args: Any, **kwargs: Any) -> None:
         而不是返回错误状态。
     """
     packages = [
-        "fundb-tau",
+        "fardb",
         "funsecret",
         "farfuntask",
         "funbuild",
