@@ -8,8 +8,26 @@ logger = getLogger("funpypi")
 
 
 def install(*args: Any, **kwargs: Any) -> None:
-    """升级组织内部发布包，任一步骤失败都会终止命令。"""
-    packages = ["fundb", "funsecret", "farfuntask", "funbuild", "fundrive", "funread", "funfile"]
+    """升级组织内部发布包，任一步骤失败都会终止命令。
+
+    Args:
+        *args: 兼容 argparse 子命令分发，接收 `args.func(args)` 传入的
+            `Namespace` 对象，函数体内不使用其内容。
+        **kwargs: 预留的关键字参数占位，当前不使用。
+
+    Returns:
+        None。安装全部成功时无返回值；任一包安装失败会抛出 `RuntimeError`
+        而不是返回错误状态。
+    """
+    packages = [
+        "fundb-tau",
+        "funsecret",
+        "farfuntask",
+        "funbuild",
+        "fundrive",
+        "funread",
+        "funfile",
+    ]
     for package in packages:
         logger.info("安装 {} ...", package)
         result = run_shell(f"python -m pip install -U {package} -i https://pypi.org/simple/ -q")

@@ -25,17 +25,27 @@ def setup(
     """按组织默认值调用 setuptools.setup。
 
     Args:
-        name: 项目名称。
-        package_name: 发布名称，默认使用 name。
-        version: 版本号，未提供时从版本文件读取。
-        packages: 要发布的包列表。
-        package_data: 包含的非 Python 文件规则。
-        install_requires: 运行时依赖列表。
-        *args: 透传给 setuptools 的位置参数。
-        **kwargs: 透传给 setuptools 的关键字参数。
+        name: 项目名称，同时作为 package_name、description、url 的默认取值来源。
+        package_name: 发布到 PyPI 的包名，默认使用 name。
+        version: 版本号，未提供时通过 `read_version()` 从版本文件读取。
+        description: 包描述，默认使用 name。
+        author: 作者名，默认 "bingtao"。
+        author_email: 作者邮箱，默认 "1007530194@qq.com"。
+        url: 项目主页，默认 `https://github.com/farfarfun/{name}`。
+        packages: 要发布的包列表，默认使用 `setuptools.find_packages()` 自动发现。
+        package_data: 包含的非 Python 文件规则，默认 `{"": ["*.js", "*.*"]}`。
+        install_requires: 运行时依赖列表，默认空列表。
+        long_description: 长描述正文，默认读取当前目录下的 `README.md`；
+            该文件不存在时会抛出 `FileNotFoundError`。
+        *args: 透传给 `setuptools.setup` 的位置参数。
+        **kwargs: 透传给 `setuptools.setup` 的关键字参数。
 
     Returns:
-        setuptools.setup 的返回值。
+        `setuptools.setup` 的返回值。
+
+    Raises:
+        FileNotFoundError: 未显式传入 `long_description` 且当前目录缺少
+            `README.md` 时。
     """
     version = version or read_version()
     return setup2(
