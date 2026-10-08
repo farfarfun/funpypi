@@ -7,7 +7,8 @@
 - 批量安装列表中的 `fundb` 改为组织真实发布名 `fardb`：PyPI 上的 `fundb` 已被他人
   （Madhava-mng）占用，按旧名安装会装到别人的包；`fundb-tau` 是改名前的旧发布名，
   已停在 1.3.20 不再更新。
-- 删除历史遗留的 `script/__version__.md`，版本号统一以 `pyproject.toml` 为唯一来源。
+- 删除项目中历史遗留的 `script/__version__.md`；本项目发布版本以
+  `pyproject.toml` 为准，兼容 API 仍可读写调用方指定的版本文件。
 - 补全 `setup`/`install` 公开 API 的参数、返回值与异常说明文档。
 
 ### 新增
