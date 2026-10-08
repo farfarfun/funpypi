@@ -1,23 +1,23 @@
-import argparse
-from typing import Any
-
+import typer
 from farlog import getLogger
 from funshell import run_shell
 
 logger = getLogger("funpypi")
+app = typer.Typer(help="farfarfun 组织包管理工具")
 
 
-def install(*args: Any, **kwargs: Any) -> None:
+@app.callback(invoke_without_command=True)
+def main(ctx: typer.Context) -> None:
+    if ctx.invoked_subcommand is None:
+        typer.echo(ctx.get_help())
+        raise typer.Exit(2)
+
+
+@app.command()
+def install() -> None:
     """升级组织内部发布包，任一步骤失败都会终止命令。
 
-    Args:
-        *args: 兼容 argparse 子命令分发，接收 `args.func(args)` 传入的
-            `Namespace` 对象，函数体内不使用其内容。
-        **kwargs: 预留的关键字参数占位，当前不使用。
-
-    Returns:
-        None。安装全部成功时无返回值；任一包安装失败会抛出 `RuntimeError`
-        而不是返回错误状态。
+    任一包安装失败会抛出 `RuntimeError`，命令以非零状态退出。
     """
     packages = [
         "fardb",
@@ -38,14 +38,4 @@ def install(*args: Any, **kwargs: Any) -> None:
 
 def funpypi() -> None:
     """运行 funpypi 命令行入口。"""
-    parser = argparse.ArgumentParser(prog="funpypi")
-    subparsers = parser.add_subparsers(help="sub-command help")
-
-    # 添加子命令
-    build_parser = subparsers.add_parser("install", help="安装 farfarfun 组织包")
-    build_parser.set_defaults(func=install)
-
-    args = parser.parse_args()
-    if not hasattr(args, "func"):
-        parser.error("必须指定子命令")
-    args.func(args)
+    app()

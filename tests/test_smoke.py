@@ -1,9 +1,9 @@
 """funpypi 公开 API 和失败路径测试。"""
 
-import sys
 from unittest.mock import Mock, patch
 
 import pytest
+from typer.testing import CliRunner
 
 from funpypi.version import VersionManage
 
@@ -117,23 +117,24 @@ def test_setups_picks_param_by_env_index(monkeypatch) -> None:
     assert setup2.call_args.kwargs["version"] == "0.0.2"
 
 
-def test_funpypi_cli_dispatches_to_install(monkeypatch) -> None:
+def test_funpypi_cli_dispatches_to_install() -> None:
     """CLI 的 install 子命令应分发到 install 函数。"""
     from funpypi import script
 
-    monkeypatch.setattr(sys, "argv", ["funpypi", "install"])
-    with patch.object(script, "install") as install_mock:
-        script.funpypi()
-    install_mock.assert_called_once()
+    runner = CliRunner()
+    with patch.object(script, "run_shell", return_value="0") as run:
+        result = runner.invoke(script.app, ["install"])
+    assert result.exit_code == 0
+    assert run.call_count == 7
 
 
-def test_funpypi_cli_requires_subcommand(monkeypatch) -> None:
+def test_funpypi_cli_requires_subcommand() -> None:
     """不带子命令运行 CLI 时应报错退出，而不是静默什么都不做。"""
     from funpypi import script
 
-    monkeypatch.setattr(sys, "argv", ["funpypi"])
-    with pytest.raises(SystemExit):
-        script.funpypi()
+    result = CliRunner().invoke(script.app)
+    assert result.exit_code == 2
+    assert "Usage:" in result.stdout
 
 
 def test_import() -> None:

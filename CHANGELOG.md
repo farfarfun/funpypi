@@ -15,6 +15,10 @@
 
 - 补充 `setups`、CLI 子命令分发、`install` 成功路径、`setup` 默认值与缺 README 失败边界的测试。
 
+### 变更
+
+- 命令行入口从 `argparse` 迁移到 `typer`，保留 `funpypi install` 和无子命令时的失败语义。
+
 ## [0.2.2] - 2026-09-21
 
 ### 新增

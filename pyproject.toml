@@ -7,7 +7,7 @@ requires-python = ">=3.10"
 license = "MIT"
 license-files = ["LICENSE"]
 authors = [{ name = "牛哥", email = "farfarfun@qq.com" }]
-dependencies = ["farlog>=1.1.7", "funshell>=1.0.19", "setuptools>=68.0"]
+dependencies = ["farlog>=1.1.7", "funshell>=1.0.19", "setuptools>=68.0", "typer>=0.12"]
 
 [project.scripts]
 funpypi = "funpypi.script:funpypi"
