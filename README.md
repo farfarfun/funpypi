@@ -47,14 +47,23 @@ with TemporaryDirectory() as directory:
 
 ## 开发与检查
 
-在仓库根目录安装开发和构建工具后，可运行以下命令：
+在仓库根目录使用 uv 安装开发依赖后，可运行以下检查：
 
 ```bash
-python -m pip install -e . pytest ruff build
-python -m pytest
-ruff check .
-ruff format --check .
-python -m build
+uv sync --group dev
+uv run pytest
+uv run ruff check .
+uv run ruff format --check .
+```
+
+构建、安装校验、版本递增和发布由 funbuild 统一执行：
+
+```bash
+# 本地构建并安装 wheel，用于安装校验；不发布
+uv run funbuild install
+
+# 递增版本并执行完整发布流程
+uv run funbuild build
 ```
 
 ---

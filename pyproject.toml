@@ -13,7 +13,7 @@ dependencies = ["farlog>=1.1.7", "funshell>=1.0.19", "setuptools>=68.0", "typer>
 funpypi = "funpypi.script:funpypi"
 
 [dependency-groups]
-dev = ["pytest>=8.0.0", "ruff>=0.8"]
+dev = ["funbuild>=1.6.98", "pytest>=8.0.0", "ruff>=0.8"]
 
 [tool.ruff]
 line-length = 100
